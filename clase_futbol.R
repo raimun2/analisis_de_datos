@@ -23,7 +23,7 @@ table(Mundiales$which.stage.of.the.turnament)
 Mundiales$fase = "grupos"
 
 #    y luego cambiamos aquellas fases que contengan la palabra "final" (final, semi final y final round)
-Mundiales$fase[grep("^final|^semi final|^final round",Mundiales$which.stage.of.the.turnament)] = "final"
+Mundiales$fase[grep("^final|^semi final|^final round",Mundiales$which.stage.of.the.turnament)] = "finales"
 
 #    y finalmente cambiamos aquellas fases que contengan la palabra "third" por 3y4
 Mundiales$fase[grep("third",Mundiales$which.stage.of.the.turnament)] = "3y4"
@@ -38,5 +38,5 @@ ggplot(data_fase, aes(x=year, y =goles_partido, col=fase)) +
   theme_minimal() + 
   xlab("Año del mundial") +
   ylab("# Goles") + 
-  ggtitle("Numero de goles por partido segun año y fase")
+  ggtitle("Promedio de goles por partido segun año y fase de los Mundiales")
 
