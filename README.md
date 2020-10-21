@@ -1,2 +1,2 @@
-# clase_futbol
-script para la clase de analisis de futbol
+# clase futbol
+El script clase_futbol.R contiene el script revisado en la clase
