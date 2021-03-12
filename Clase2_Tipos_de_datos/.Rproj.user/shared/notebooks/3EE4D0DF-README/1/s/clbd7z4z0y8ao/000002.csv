@@ -1,0 +1,4 @@
+"0","unicos <- unique(data2)
+"
+"2","Error in unique(data2) : objeto 'data2' no encontrado
+"

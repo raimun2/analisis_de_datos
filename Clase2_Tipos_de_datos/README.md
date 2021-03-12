@@ -5,10 +5,10 @@ Existen diversos tipos de variables, como las numericas, de texto, de
 fecha u ordinales.
 
 Para analizarlos, lo primero que debemos hacer es cargar la data
-tabular, utilizando la funcion read.csv()
+tabular, utilizando la funcion read\_csv()
 
 ``` r
-data <- read.csv("rankingsATP.csv", header = TRUE, sep = ",")
+data <- read.csv("rankingsATP.csv") 
 
 head(data)
 ```
@@ -34,6 +34,26 @@ head(data)
     ## 4 /en/players/alexander-zverev/z355/overview alexander-zverev      z355
     ## 5    /en/players/dominic-thiem/tb69/overview    dominic-thiem      tb69
     ## 6      /en/players/marin-cilic/c977/overview      marin-cilic      c977
+
+``` r
+str(data)
+```
+
+    ## 'data.frame':    755021 obs. of  14 variables:
+    ##  $ week_title     : chr  "2017.11.20" "2017.11.20" "2017.11.20" "2017.11.20" ...
+    ##  $ week_year      : int  2017 2017 2017 2017 2017 2017 2017 2017 2017 2017 ...
+    ##  $ week_month     : int  11 11 11 11 11 11 11 11 11 11 ...
+    ##  $ week_day       : int  20 20 20 20 20 20 20 20 20 20 ...
+    ##  $ rank_text      : chr  "1" "2" "3" "4" ...
+    ##  $ rank_number    : int  1 2 3 4 5 6 7 8 9 10 ...
+    ##  $ move_positions : int  NA NA 3 1 1 1 1 1 2 NA ...
+    ##  $ move_direction : chr  "" "" "up" "down" ...
+    ##  $ player_age     : int  31 36 26 20 24 29 26 25 32 26 ...
+    ##  $ ranking_points : int  10645 9605 5150 4610 4015 3805 3775 3165 3150 2615 ...
+    ##  $ tourneys_played: int  18 17 23 25 27 22 26 22 15 25 ...
+    ##  $ player_url     : chr  "/en/players/rafael-nadal/n409/overview" "/en/players/roger-federer/f324/overview" "/en/players/grigor-dimitrov/d875/overview" "/en/players/alexander-zverev/z355/overview" ...
+    ##  $ player_slug    : chr  "rafael-nadal" "roger-federer" "grigor-dimitrov" "alexander-zverev" ...
+    ##  $ player_id      : chr  "n409" "f324" "d875" "z355" ...
 
 Vemos que en la tabla registros con datos faltantes, y otros con datos
 no validos (NA), vamos a validarlo con la funcion summary()
@@ -97,7 +117,7 @@ evolución anual del top 10 de jugadores del tenis ATP desde el año
 
 Para simplificar el analisis consideraremos:
 
-  - Data desde el año 2000.
+  - Data desde el año 2012.
   - Variables week\_year, rank\_number, player\_slug
 
 <!-- end list -->
@@ -162,7 +182,7 @@ directamente la funcion aggregate
 
 ``` r
 # agrego la variable rank_number calculandole la mediana, para cada semana y jugador
-agg_df <- aggregate(rank_number ~ week_year + player_slug, data1, median)
+agg_df <- aggregate(rank_number ~ week_year + player_slug, data1, mean)
 
 dim(agg_df)
 ```
@@ -194,18 +214,18 @@ summary(agg_df)
 ```
 
     ##    week_year    player_slug         rank_number          max      
-    ##  Min.   :2012   Length:16028       Min.   :   1.0   Min.   :1967  
-    ##  1st Qu.:2013   Class :character   1st Qu.: 654.5   1st Qu.:2098  
-    ##  Median :2015   Mode  :character   Median :1232.2   Median :2202  
-    ##  Mean   :2015                      Mean   :1152.3   Mean   :2157  
-    ##  3rd Qu.:2016                      3rd Qu.:1661.0   3rd Qu.:2233  
-    ##  Max.   :2017                      Max.   :2251.0   Max.   :2251  
+    ##  Min.   :2012   Length:16028       Min.   :   1.0   Min.   :1965  
+    ##  1st Qu.:2013   Class :character   1st Qu.: 684.1   1st Qu.:2096  
+    ##  Median :2015   Mode  :character   Median :1274.4   Median :2197  
+    ##  Mean   :2015                      Mean   :1168.6   Mean   :2155  
+    ##  3rd Qu.:2016                      3rd Qu.:1669.5   3rd Qu.:2231  
+    ##  Max.   :2017                      Max.   :2246.0   Max.   :2246  
     ##  rank_relative      
-    ##  Min.   :0.0004442  
-    ##  1st Qu.:0.3033464  
-    ##  Median :0.5739971  
-    ##  Mean   :0.5342847  
-    ##  3rd Qu.:0.7737672  
+    ##  Min.   :0.0004482  
+    ##  1st Qu.:0.3168596  
+    ##  Median :0.5934861  
+    ##  Mean   :0.5423283  
+    ##  3rd Qu.:0.7786538  
     ##  Max.   :1.0000000
 
 ## Discretización
@@ -222,18 +242,21 @@ table(agg_df$top10)
 
     ## 
     ##     0     1 
-    ## 15971    57
+    ## 15976    52
 
-Finalmente puedo analizar al top 10 con un grafico de evolucion
+### Finalmente puedo analizar al top 10 con un gráfico de evolución
 
 ``` r
 #filtro data para el grafico
 data_plot <- agg_df %>% filter(top10 == 1) 
 
-ggplot(data_plot) + 
-  geom_line(aes(week_year,rank_number, col =player_slug )) + 
+ggplot(data_plot, aes(week_year, rank_number, col = player_slug)) + 
+  geom_line() + 
+  geom_point() + 
   theme(legend.position = "bottom") +
-  scale_y_reverse()
+  scale_y_reverse() + 
+  ggtitle("Evolucion del top10 ATP entre 2012 y 2017") +
+  scale_color_viridis_d()
 ```
 
-![](02.README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
