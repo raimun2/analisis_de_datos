@@ -1,7 +1,7 @@
 Clase 3: Exploración de datos
 ================
 
-Análisis del conjunto de datos para resumir sus principales
+Corresponde al análisis del conjunto de datos para resumir sus principales
 características, mediante métodos estadísticos y visuales.
 
 Objetivos:
