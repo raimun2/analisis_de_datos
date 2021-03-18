@@ -1,5 +1,5 @@
 ---
-title: "Clase 1: Introduccion al análisis de datos"
+title: "Clase 1: Introducción al análisis de datos"
 output: github_document
 ---
 
