@@ -3,7 +3,7 @@
     "path": "C:/Users/raimu/Dropbox/01.Docencia/2021.1.analisis_de_datos/analisis_de_datos/README.Rmd",
     "project_path": "README.Rmd",
     "type": "r_markdown",
-    "hash": "2941822584",
+    "hash": "1608939297",
     "contents": "",
     "dirty": false,
     "created": 1616110423774.0,
@@ -11,15 +11,15 @@
     "relative_order": 2,
     "properties": {
         "tempName": "Untitled1",
-        "cursorPosition": "9,0",
+        "cursorPosition": "17,71",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1616110695,
+    "lastKnownWriteTime": 1616110820,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1616110695125,
+    "last_content_update": 1616110820518,
     "read_only": false,
     "read_only_alternatives": []
 }
