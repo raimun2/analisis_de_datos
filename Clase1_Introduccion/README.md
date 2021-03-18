@@ -1,7 +1,5 @@
-Clase Data Mining
+Clase 1: Introduccion al análisis de datos
 ================
-
-## Mineria de datos
 
 En este ejemplo vamos a analizar el desempeño de los equipos de futbol a
 lo largo de los mundiales.

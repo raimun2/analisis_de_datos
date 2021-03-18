@@ -1,5 +1,5 @@
 ---
-title: "Exploración de datos"
+title: "Clase 3: Exploración de datos"
 output: github_document
 ---
 

@@ -1,4 +1,4 @@
-Analisis de Datos
+Analisis de datos
 ================
 
 En este repositorio estan los apuntos del curso de Análisis de Datos que

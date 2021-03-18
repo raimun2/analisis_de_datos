@@ -1,4 +1,4 @@
-Exploración de datos
+Clase 3: Exploración de datos
 ================
 
 Análisis del conjunto de datos para resumir sus principales

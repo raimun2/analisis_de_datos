@@ -1,5 +1,5 @@
 ---
-title: "Tipos de datos"
+title: "Clase 2: Tipos de datos"
 output: github_document
 ---
 
@@ -7,15 +7,14 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Existen diversos tipos de variables, como las numericas, de texto, de fecha u ordinales.
+Existen diversos tipos de variables, como las numéricas, de texto, de fecha u ordinales.
 
 Para analizarlos, lo primero que debemos hacer es cargar la data tabular, utilizando la funcion read.csv()
 
 
 ```{r cargar data}
-getwd()
 
-data <- read.csv("data/rankingsATP.csv")
+data <- read.csv("rankingsATP.csv")
 
 head(data)
 
@@ -30,7 +29,7 @@ summary(data)
 
 ```
 
-También nos interea explorar el numero de filas y de columnas de la tabla
+También nos interesa explorar el número de filas y de columnas de la tabla
 
 ```{r}
 
@@ -39,7 +38,7 @@ dim(data)
 
 # Pre procesamiento de la data
 
-El pre procesamiento de la data es un conjunto de pasos que debe ejecutarse con un uso especifico, no es un proceso general para la data. 
+El pre procesamiento de la data es un conjunto de pasos que debe ejecutarse con un uso específico, no es un proceso general para la data. 
 
 En este caso el uso específico lo definiremos como: Estudiar la evolución anual del top 10 de jugadores del tenis ATP desde el año 2012.
 
@@ -74,7 +73,7 @@ dim(data2)
 
 ## Encontrar y tratar con entidades duplicadas 
 
-Si queremos preservar solo las entindades únicas podemos utilizar la funcion unique()
+Si queremos preservar solo las entindades únicas podemos utilizar la función unique()
 
 ```{r}
 
@@ -86,7 +85,7 @@ dim(unicos)
 
 ## Muestreo
 
-Para hacer un muestreo simple sin reemplazo podemos usar la funcion sample()
+Para hacer un muestreo simple sin reemplazo podemos usar la función sample()
 
 ```{r}
 # genero un listado de 1000 numeros aleatorios a partir de los valores entre 1 y el numero de registros unicos, sin reperirse
@@ -100,7 +99,7 @@ dim(sampleData)
 ```
 ## Agregación
 
-Si quisiera agregar el ranking para cada año-jugador, mejor usamos directamente la funcion aggregate
+Si quisiera agregar el ranking para cada año-jugador, mejor usamos directamente la función aggregate
 
 ```{r}
 # agrego la variable rank_number calculandole la mediana, para cada semana y jugador

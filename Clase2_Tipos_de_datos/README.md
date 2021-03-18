@@ -1,14 +1,14 @@
-Tipos de datos
+Clase 2: Tipos de datos
 ================
 
-Existen diversos tipos de variables, como las numericas, de texto, de
+Existen diversos tipos de variables, como las numéricas, de texto, de
 fecha u ordinales.
 
 Para analizarlos, lo primero que debemos hacer es cargar la data
 tabular, utilizando la funcion read.csv()
 
 ``` r
-data <- read.csv("rankingsATP.csv") 
+data <- read.csv("rankingsATP.csv")
 
 head(data)
 ```
@@ -95,7 +95,7 @@ summary(data)
     ##                                       
     ## 
 
-También nos interea explorar el numero de filas y de columnas de la
+También nos interesa explorar el número de filas y de columnas de la
 tabla
 
 ``` r
@@ -107,7 +107,7 @@ dim(data)
 # Pre procesamiento de la data
 
 El pre procesamiento de la data es un conjunto de pasos que debe
-ejecutarse con un uso especifico, no es un proceso general para la data.
+ejecutarse con un uso específico, no es un proceso general para la data.
 
 En este caso el uso específico lo definiremos como: Estudiar la
 evolución anual del top 10 de jugadores del tenis ATP desde el año
@@ -150,7 +150,7 @@ dim(data2)
 ## Encontrar y tratar con entidades duplicadas
 
 Si queremos preservar solo las entindades únicas podemos utilizar la
-funcion unique()
+función unique()
 
 ``` r
 unicos <- unique(data2)
@@ -162,7 +162,7 @@ dim(unicos)
 
 ## Muestreo
 
-Para hacer un muestreo simple sin reemplazo podemos usar la funcion
+Para hacer un muestreo simple sin reemplazo podemos usar la función
 sample()
 
 ``` r
@@ -180,7 +180,7 @@ dim(sampleData)
 ## Agregación
 
 Si quisiera agregar el ranking para cada año-jugador, mejor usamos
-directamente la funcion aggregate
+directamente la función aggregate
 
 ``` r
 # agrego la variable rank_number calculandole la mediana, para cada semana y jugador
