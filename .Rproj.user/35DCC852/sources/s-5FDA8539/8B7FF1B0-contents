@@ -13,9 +13,8 @@ Para analizarlos, lo primero que debemos hacer es cargar la data tabular, utiliz
 
 
 ```{r cargar data}
-getwd()
 
-data <- read.csv("data/rankingsATP.csv")
+data <- read_csv("data/rankingsATP.csv")
 
 head(data)
 

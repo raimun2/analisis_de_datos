@@ -5,7 +5,7 @@ Existen diversos tipos de variables, como las numericas, de texto, de
 fecha u ordinales.
 
 Para analizarlos, lo primero que debemos hacer es cargar la data
-tabular, utilizando la funcion read\_csv()
+tabular, utilizando la funcion read.csv()
 
 ``` r
 data <- read.csv("rankingsATP.csv") 
@@ -115,7 +115,7 @@ evolución anual del top 10 de jugadores del tenis ATP desde el año
 
 ## Reducción de dimensionalidad y selección de variables
 
-Para simplificar el analisis consideraremos:
+Para simplificar el análisis consideraremos:
 
   - Data desde el año 2012.
   - Variables week\_year, rank\_number, player\_slug
@@ -136,6 +136,8 @@ El mismo resultado puede obtenerse utilizando un dialecto de R llamado
 tidyverse
 
 ``` r
+library(tidyverse)
+
 data2 <- data %>% 
             filter(week_year >= 2012) %>% 
             select(week_year, rank_number, player_slug)
@@ -177,7 +179,7 @@ dim(sampleData)
 
 ## Agregación
 
-Si quisiera agregar la el ranking para cada año-jugador, mejor usamos
+Si quisiera agregar el ranking para cada año-jugador, mejor usamos
 directamente la funcion aggregate
 
 ``` r
@@ -191,7 +193,7 @@ dim(agg_df)
 
 ## Normalización / Estandarización
 
-Ya tenemos el ranking mediano del año, pero tambien queremos saber la
+Ya tenemos el ranking medio del año, pero tambien queremos saber la
 posición relativa que ese ranking en cada año. Para esto debemos dividir
 el ranking de cada año por el maximo valor de ese año.
 

@@ -1,0 +1,4 @@
+"0","data <- read_csv(""data/rankingsATP.csv"")
+"
+"2","Error: 'data/rankingsATP.csv' does not exist in current working directory ('C:/Users/raimu/Dropbox/01.Docencia/2021.1.Analisis_de_Datos/analisis_de_datos/Clase2_Tipos_de_datos').
+"
