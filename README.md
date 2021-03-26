@@ -12,3 +12,6 @@ Casi todas las semanas iré agregando una nueva sesión.
 
   - [Clase 3: Exploracion de
     datos](../master/Clase3_Exploracion_de_datos)
+
+  - [Clase 4: Ingenieria de
+    atributos](../master/Clase4_Ingenieria_de_atributos)

@@ -4,7 +4,7 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(tidyverse)
 ```
 
@@ -16,7 +16,7 @@ Este proceso puede hacerse manualmente o algoritmicamente, y se puede enfocar de
 
 Para probar los diferentes metodos para seleccionar atributos utilizaremos el dataset iris, que viene en R base
 
-```{r seleccion, warning=FALSE}
+```{r seleccion}
 iris0 <- iris %>% unique()
 
 str(iris0)
@@ -30,21 +30,35 @@ iris_num <- iris0 # creamos una copia de la data pero con varibles numericas sol
 iris_num$Species <- NULL
 
 
-## primero probaremos el algoritmo de fuerza bruta
+
+```
+Primero probaremos el algoritmo de fuerza bruta
+
+```{r}
+
 library(stuart) 
 
 results <- bruteforce(iris_num, list(ra = names(iris_num)), 3,
-  cores = 4)  # numero de nucleos en la maquina
+  cores = 1)  # numero de nucleos en la maquina
 
 summary(results)  
 
-## para el resto de los metodos utilizamos la siguiente libreria
+
+```
+
+
+Para el resto de los metodos utilizamos la libreria FSinR (Feature Selection in R)
+
+Para usarla, primero debemos utilizar un metodo de optimizacion, donde todas las opciones disponibles estan en
+ ? searchAlgorithm
+ 
+Estos algoritmos buscaran el optimo en todo el espacio de soluciones
+
+
+```{r}
 library(FSinR)   # feature selection
 
-# Para usarla, primero debemos utilizar un metodo de optimizacion, donde todas las opciones disponibles estan en
- ? searchAlgorithm
 
-# Estos algoritmos buscaran el optimo en todo el espacio de soluciones
 searcher <- searchAlgorithm('geneticAlgorithm')
 searcher <- searchAlgorithm('tabu', list(tamTabuList = 4, iter = 5, intensification=2, iterIntensification=5, diversification=1, iterDiversification=5, verbose=FALSE) )
 searcher <- searchAlgorithm('antColony')
@@ -52,8 +66,14 @@ searcher <- searchAlgorithm('sequentialForwardSelection')
 searcher <- searchAlgorithm('hillClimbing')
 
 
-## Luego tenemos que definir una variable para filtrar, las variables disponibles estan en 
+
+```
+
+Luego tenemos que definir una variable para filtrar, las variables disponibles estan en 
 ? filterEvaluator
+
+```{r}
+
 
 filtro <- filterEvaluator("IEConsistency")
 filtro <- filterEvaluator('determinationCoefficient')
@@ -61,13 +81,23 @@ filtro <- filterEvaluator('chiSquared')
 filtro <- filterEvaluator('MDLC') 
 
 
-## finalmente optimizamos los atributos, utilizando la variable Species como referencia para pronosticar
+```
+
+
+Finalmente optimizamos los atributos, utilizando la variable Species como referencia para pronosticar
+
+```{r}
+
 results <- featureSelection(iris0, 'Species', searcher, filtro)
 
 results$bestFeatures
 
-## tambien se puede pronosticar la variable de referencia utilizando una funcion de envoltorio o wrapper. las funciones disponibles se pueden ver en 
-? wrapperEvaluator
+```
+
+Tambien se puede pronosticar la variable de referencia utilizando una funcion de envoltorio o wrapper. Las funciones disponibles se pueden ver en ? wrapperEvaluator
+
+
+```{r}
 
 evaluator <- wrapperEvaluator("xgbLinear")
 evaluator <- wrapperEvaluator("svmLinearWeights")
@@ -80,19 +110,24 @@ results <- featureSelection(iris0, 'Species', searcher, evaluator)
 results$bestFeatures
 
 
-## por ultimo tambien se pueden seleccionar atributos por busquedas directas
+```
+
+Por ultimo tambien se pueden seleccionar atributos por busquedas directas. 
+
+Ojo que la funcion FeatureSelection es diferente a la anterior
+
+
+```{r}
 
 directSearcher <- directSearchAlgorithm('selectKBest', list(k=3))
 
-## ojo que la funcion es diferente a la anterior
 results <- directFeatureSelection(iris0, 'Species', directSearcher, evaluator)
 
 results$bestFeatures
-
-
-
-
 ```
+
+
+
 Ahora vamos a visualizar todos los pares de variables originales, a ver si se pueden ver patrones claros
 
 ```{r, message=FALSE, error = FALSE, warning = FALSE}
@@ -106,37 +141,52 @@ ggpairs(iris_num, aes(col=iris0$Species))
 
 ## Extracción de atributos
 
-Para la extraccion de atributos probaremos diferentes metodologias sobre la misma data
+Para la extraccion de atributos probaremos diferentes metodologias sobre la misma data. En todos los casos graficaremos los datos sobre los nuevos atributos, para ver si se diferencian mejor que con los atributos originales.
 
-```{r}
+Primero comenzamos con componentes principales (PCA)
+
+```{r, warning=FALSE, message=FALSE}
 
 #PCA
 PCA <- prcomp(iris_num)
 
-barplot(PCA$sdev)
+barplot(PCA$sdev) ## graficamos el aporte de varianza de cada componente principal
 
 predict(PCA) %>% as.data.frame() %>%  ggplot(aes(PC1,PC2, col=iris0$Species)) + geom_point()
 
-#MDS
 
+```
+Luego escalamiento multidimensional (MDS)
+
+```{r}
+
+#MDS
 d <- dist(iris_num) # distancias euclidianas entre entidades
 MDS <- cmdscale(d,eig=TRUE, k=2) # k es el numero de dimensiones de salida
 
 MDS$points %>% as.data.frame() %>% ggplot(aes(V1,V2, col=iris0$Species)) + geom_point()
 
+```
+
+Escalamiento multidimensional no parametrico (n-MDS)
+
+```{r}
+
 #nMDS
-
-
 library(MASS)
-
 nMDS <- isoMDS(d, k=2) 
 
 nMDS$points %>% as.data.frame() %>% ggplot(aes(V1,V2, col=iris0$Species)) + geom_point()
 
+```
+
+t-distributed stochastic neighbor embedding
+
+```{r}
 #tSNE
 
 library(Rtsne)
-tsne <- Rtsne(iris_num, dims = 2, perplexity=30, verbose=TRUE, max_iter = 500)
+tsne <- Rtsne(iris_num, dims = 2, perplexity=30, max_iter = 500)
 
 tsne$Y %>% as.data.frame() %>% ggplot(aes(V1,V2, col=iris0$Species)) + geom_point()
 

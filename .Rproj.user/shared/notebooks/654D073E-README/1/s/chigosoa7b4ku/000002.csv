@@ -1,0 +1,5 @@
+"0","tsne <- Rtsne(iris_num, dims = 2, perplexity=30, verbose=TRUE, max_iter = 500)
+"
+"2","Error in Rtsne(iris_num, dims = 2, perplexity = 30, verbose = TRUE, max_iter = 500) : 
+  no se pudo encontrar la función ""Rtsne""
+"

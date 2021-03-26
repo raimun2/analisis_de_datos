@@ -34,41 +34,22 @@ iris0$versicolor <- ifelse(iris0$Species == "versicolor", 1, 0)
 
 iris_num <- iris0 # creamos una copia de la data pero con varibles numericas solamente
 iris_num$Species <- NULL
-
-
-## primero probaremos el algoritmo de fuerza bruta
-library(stuart) 
 ```
 
-    ## Warning: This is a beta-build of stuart. Please report any bugs you encounter.
+Primero probaremos el algoritmo de fuerza bruta
 
 ``` r
+library(stuart) 
+
 results <- bruteforce(iris_num, list(ra = names(iris_num)), 3,
-  cores = 4)  # numero de nucleos en la maquina
+  cores = 1)  # numero de nucleos en la maquina
 ```
 
-    ## Loading required namespace: lavaan
-
-    ## Loading required namespace: parallel
-
-    ## There are 35 combinations that need to be tested.
-
-    ## Generating all possible combinations.
-
-    ## Running STUART with Brute-Force.
-
-    ##   |                                                                              |                                                                      |   0%
-
-    ## Progressbars are not functional when utilizing multiple cores for bruteforce in Windows.
-
-    ## 
-    ## Search ended.
+    ##   |                                                                              |                                                                      |   0%  |                                                                              |==                                                                    |   3%  |                                                                              |====                                                                  |   6%  |                                                                              |======                                                                |   9%  |                                                                              |========                                                              |  11%  |                                                                              |==========                                                            |  14%  |                                                                              |============                                                          |  17%  |                                                                              |==============                                                        |  20%  |                                                                              |================                                                      |  23%  |                                                                              |==================                                                    |  26%  |                                                                              |====================                                                  |  29%  |                                                                              |======================                                                |  31%  |                                                                              |========================                                              |  34%  |                                                                              |==========================                                            |  37%  |                                                                              |============================                                          |  40%  |                                                                              |==============================                                        |  43%  |                                                                              |================================                                      |  46%  |                                                                              |==================================                                    |  49%  |                                                                              |====================================                                  |  51%  |                                                                              |======================================                                |  54%  |                                                                              |========================================                              |  57%  |                                                                              |==========================================                            |  60%  |                                                                              |============================================                          |  63%  |                                                                              |==============================================                        |  66%  |                                                                              |================================================                      |  69%  |                                                                              |==================================================                    |  71%  |                                                                              |====================================================                  |  74%  |                                                                              |======================================================                |  77%  |                                                                              |========================================================              |  80%  |                                                                              |==========================================================            |  83%  |                                                                              |============================================================          |  86%  |                                                                              |==============================================================        |  89%  |                                                                              |================================================================      |  91%  |                                                                              |==================================================================    |  94%  |                                                                              |====================================================================  |  97%  |                                                                              |======================================================================| 100%
 
 ``` r
 summary(results)  
 ```
-
-    ## Warning: This is a beta-build of stuart. Please report any bugs you encounter.
 
     ## SUMMARY OF ANALYSIS:
     ## 
@@ -76,7 +57,7 @@ summary(results)
     ## Estimation Software: lavaan 
     ## Models estimated: 35 
     ## Replications of final solution: 1 
-    ## Time Required: 75.13 seconds
+    ## Time Required: 86.37 seconds
     ## 
     ## Optimization History:
     ##   run pheromone chisq df pvalue rmsea         srmr      crel
@@ -87,51 +68,54 @@ summary(results)
     ## Constructed Subtests:
     ## ra: Sepal.Length Petal.Length virginica
 
+Para el resto de los metodos utilizamos la libreria FSinR (Feature
+Selection in R)
+
+Para usarla, primero debemos utilizar un metodo de optimizacion, donde
+todas las opciones disponibles estan en ? searchAlgorithm
+
+Estos algoritmos buscaran el optimo en todo el espacio de soluciones
+
 ``` r
-## para el resto de los metodos utilizamos la siguiente libreria
 library(FSinR)   # feature selection
 
-# Para usarla, primero debemos utilizar un metodo de optimizacion, donde todas las opciones disponibles estan en
- ? searchAlgorithm
-```
 
-    ## starting httpd help server ...
-
-    ##  done
-
-``` r
-# Estos algoritmos buscaran el optimo en todo el espacio de soluciones
 searcher <- searchAlgorithm('geneticAlgorithm')
 searcher <- searchAlgorithm('tabu', list(tamTabuList = 4, iter = 5, intensification=2, iterIntensification=5, diversification=1, iterDiversification=5, verbose=FALSE) )
 searcher <- searchAlgorithm('antColony')
 searcher <- searchAlgorithm('sequentialForwardSelection')
 searcher <- searchAlgorithm('hillClimbing')
+```
 
+Luego tenemos que definir una variable para filtrar, las variables
+disponibles estan en ? filterEvaluator
 
-## Luego tenemos que definir una variable para filtrar, las variables disponibles estan en 
-? filterEvaluator
-
+``` r
 filtro <- filterEvaluator("IEConsistency")
 filtro <- filterEvaluator('determinationCoefficient')
 filtro <- filterEvaluator('chiSquared')
 filtro <- filterEvaluator('MDLC') 
+```
 
+Finalmente optimizamos los atributos, utilizando la variable Species
+como referencia para pronosticar
 
-## finalmente optimizamos los atributos, utilizando la variable Species como referencia para pronosticar
+``` r
 results <- featureSelection(iris0, 'Species', searcher, filtro)
 
 results$bestFeatures
 ```
 
     ##      Sepal.Length Sepal.Width Petal.Length Petal.Width setosa virginica
-    ## [1,]            0           0            0           0      1         0
+    ## [1,]            0           0            0           0      0         0
     ##      versicolor
-    ## [1,]          0
+    ## [1,]          1
+
+Tambien se puede pronosticar la variable de referencia utilizando una
+funcion de envoltorio o wrapper. Las funciones disponibles se pueden ver
+en ? wrapperEvaluator
 
 ``` r
-## tambien se puede pronosticar la variable de referencia utilizando una funcion de envoltorio o wrapper. las funciones disponibles se pueden ver en 
-? wrapperEvaluator
-
 evaluator <- wrapperEvaluator("xgbLinear")
 evaluator <- wrapperEvaluator("svmLinearWeights")
 evaluator <- wrapperEvaluator("mlpWeightDecay")
@@ -139,32 +123,23 @@ evaluator <- wrapperEvaluator("lm")
 evaluator <- wrapperEvaluator("knn")
 
 results <- featureSelection(iris0, 'Species', searcher, evaluator)
-```
 
-    ## Loading required package: lattice
-
-    ## 
-    ## Attaching package: 'caret'
-
-    ## The following object is masked from 'package:purrr':
-    ## 
-    ##     lift
-
-``` r
 results$bestFeatures
 ```
 
     ##      Sepal.Length Sepal.Width Petal.Length Petal.Width setosa virginica
-    ## [1,]            0           0            0           0      1         0
+    ## [1,]            0           0            1           0      0         0
     ##      versicolor
     ## [1,]          1
 
-``` r
-## por ultimo tambien se pueden seleccionar atributos por busquedas directas
+Por ultimo tambien se pueden seleccionar atributos por busquedas
+directas.
 
+Ojo que la funcion FeatureSelection es diferente a la anterior
+
+``` r
 directSearcher <- directSearchAlgorithm('selectKBest', list(k=3))
 
-## ojo que la funcion es diferente a la anterior
 results <- directFeatureSelection(iris0, 'Species', directSearcher, evaluator)
 
 results$bestFeatures
@@ -184,54 +159,48 @@ library(GGally)
 ggpairs(iris_num, aes(col=iris0$Species))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ## Extracción de atributos
 
 Para la extraccion de atributos probaremos diferentes metodologias sobre
-la misma data
+la misma data. En todos los casos graficaremos los datos sobre los
+nuevos atributos, para ver si se diferencian mejor que con los atributos
+originales.
+
+Primero comenzamos con componentes principales (PCA)
 
 ``` r
 #PCA
 PCA <- prcomp(iris_num)
 
-barplot(PCA$sdev)
+barplot(PCA$sdev) ## graficamos el aporte de varianza de cada componente principal
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 predict(PCA) %>% as.data.frame() %>%  ggplot(aes(PC1,PC2, col=iris0$Species)) + geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-2.png)<!-- --> Luego
+escalamiento multidimensional (MDS)
 
 ``` r
 #MDS
-
 d <- dist(iris_num) # distancias euclidianas entre entidades
 MDS <- cmdscale(d,eig=TRUE, k=2) # k es el numero de dimensiones de salida
 
 MDS$points %>% as.data.frame() %>% ggplot(aes(V1,V2, col=iris0$Species)) + geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-2-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+Escalamiento multidimensional no parametrico (n-MDS)
 
 ``` r
 #nMDS
-
-
 library(MASS)
-```
-
-    ## 
-    ## Attaching package: 'MASS'
-
-    ## The following object is masked from 'package:dplyr':
-    ## 
-    ##     select
-
-``` r
 nMDS <- isoMDS(d, k=2) 
 ```
 
@@ -245,42 +214,17 @@ nMDS <- isoMDS(d, k=2)
 nMDS$points %>% as.data.frame() %>% ggplot(aes(V1,V2, col=iris0$Species)) + geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-2-4.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+t-distributed stochastic neighbor embedding
 
 ``` r
 #tSNE
 
 library(Rtsne)
-```
+tsne <- Rtsne(iris_num, dims = 2, perplexity=30, max_iter = 500)
 
-    ## Warning: package 'Rtsne' was built under R version 4.0.4
-
-``` r
-tsne <- Rtsne(iris_num, dims = 2, perplexity=30, verbose=TRUE, max_iter = 500)
-```
-
-    ## Performing PCA
-    ## Read the 149 x 7 data matrix successfully!
-    ## OpenMP is working. 1 threads.
-    ## Using no_dims = 2, perplexity = 30.000000, and theta = 0.500000
-    ## Computing input similarities...
-    ## Building tree...
-    ## Done in 0.03 seconds (sparsity = 0.710058)!
-    ## Learning embedding...
-    ## Iteration 50: error is 41.507991 (50 iterations in 0.03 seconds)
-    ## Iteration 100: error is 42.282248 (50 iterations in 0.02 seconds)
-    ## Iteration 150: error is 43.011525 (50 iterations in 0.06 seconds)
-    ## Iteration 200: error is 40.987996 (50 iterations in 0.03 seconds)
-    ## Iteration 250: error is 41.171334 (50 iterations in 0.04 seconds)
-    ## Iteration 300: error is 0.272323 (50 iterations in 0.03 seconds)
-    ## Iteration 350: error is 0.070214 (50 iterations in 0.03 seconds)
-    ## Iteration 400: error is 0.066730 (50 iterations in 0.03 seconds)
-    ## Iteration 450: error is 0.064932 (50 iterations in 0.07 seconds)
-    ## Iteration 500: error is 0.059975 (50 iterations in 0.05 seconds)
-    ## Fitting performed in 0.39 seconds.
-
-``` r
 tsne$Y %>% as.data.frame() %>% ggplot(aes(V1,V2, col=iris0$Species)) + geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-2-5.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
