@@ -1,0 +1,144 @@
+---
+title: "Clase 4: Ingenieria de atributos"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+La ingenieria de atributos consiste en generar el listado de atributos que se utilizaran en el analisis de datos, a partir del conjunto de atributos originales. 
+
+Este proceso puede hacerse manualmente o algoritmicamente, y se puede enfocar de dos maneras: Seleccion de atributos o Extraccion de atributos
+
+## Selección de atributos
+
+Para probar los diferentes metodos para seleccionar atributos utilizaremos el dataset iris, que viene en R base
+
+```{r seleccion, warning=FALSE}
+iris0 <- iris %>% unique()
+
+str(iris0)
+
+# debemos transformar variable Species en numerica, lo hacemos creando variables dummy
+iris0$setosa <- ifelse(iris0$Species == "setosa", 1, 0)
+iris0$virginica <- ifelse(iris0$Species == "virginica", 1, 0)
+iris0$versicolor <- ifelse(iris0$Species == "versicolor", 1, 0)
+
+iris_num <- iris0 # creamos una copia de la data pero con varibles numericas solamente
+iris_num$Species <- NULL
+
+
+## primero probaremos el algoritmo de fuerza bruta
+library(stuart) 
+
+results <- bruteforce(iris_num, list(ra = names(iris_num)), 3,
+  cores = 4)  # numero de nucleos en la maquina
+
+summary(results)  
+
+## para el resto de los metodos utilizamos la siguiente libreria
+library(FSinR)   # feature selection
+
+# Para usarla, primero debemos utilizar un metodo de optimizacion, donde todas las opciones disponibles estan en
+ ? searchAlgorithm
+
+# Estos algoritmos buscaran el optimo en todo el espacio de soluciones
+searcher <- searchAlgorithm('geneticAlgorithm')
+searcher <- searchAlgorithm('tabu', list(tamTabuList = 4, iter = 5, intensification=2, iterIntensification=5, diversification=1, iterDiversification=5, verbose=FALSE) )
+searcher <- searchAlgorithm('antColony')
+searcher <- searchAlgorithm('sequentialForwardSelection')
+searcher <- searchAlgorithm('hillClimbing')
+
+
+## Luego tenemos que definir una variable para filtrar, las variables disponibles estan en 
+? filterEvaluator
+
+filtro <- filterEvaluator("IEConsistency")
+filtro <- filterEvaluator('determinationCoefficient')
+filtro <- filterEvaluator('chiSquared')
+filtro <- filterEvaluator('MDLC') 
+
+
+## finalmente optimizamos los atributos, utilizando la variable Species como referencia para pronosticar
+results <- featureSelection(iris0, 'Species', searcher, filtro)
+
+results$bestFeatures
+
+## tambien se puede pronosticar la variable de referencia utilizando una funcion de envoltorio o wrapper. las funciones disponibles se pueden ver en 
+? wrapperEvaluator
+
+evaluator <- wrapperEvaluator("xgbLinear")
+evaluator <- wrapperEvaluator("svmLinearWeights")
+evaluator <- wrapperEvaluator("mlpWeightDecay")
+evaluator <- wrapperEvaluator("lm")
+evaluator <- wrapperEvaluator("knn")
+
+results <- featureSelection(iris0, 'Species', searcher, evaluator)
+
+results$bestFeatures
+
+
+## por ultimo tambien se pueden seleccionar atributos por busquedas directas
+
+directSearcher <- directSearchAlgorithm('selectKBest', list(k=3))
+
+## ojo que la funcion es diferente a la anterior
+results <- directFeatureSelection(iris0, 'Species', directSearcher, evaluator)
+
+results$bestFeatures
+
+
+
+
+```
+Ahora vamos a visualizar todos los pares de variables originales, a ver si se pueden ver patrones claros
+
+```{r, message=FALSE, error = FALSE, warning = FALSE}
+library(GGally)
+
+ggpairs(iris_num, aes(col=iris0$Species))
+
+```
+
+
+
+## Extracción de atributos
+
+Para la extraccion de atributos probaremos diferentes metodologias sobre la misma data
+
+```{r}
+
+#PCA
+PCA <- prcomp(iris_num)
+
+barplot(PCA$sdev)
+
+predict(PCA) %>% as.data.frame() %>%  ggplot(aes(PC1,PC2, col=iris0$Species)) + geom_point()
+
+#MDS
+
+d <- dist(iris_num) # distancias euclidianas entre entidades
+MDS <- cmdscale(d,eig=TRUE, k=2) # k es el numero de dimensiones de salida
+
+MDS$points %>% as.data.frame() %>% ggplot(aes(V1,V2, col=iris0$Species)) + geom_point()
+
+#nMDS
+
+
+library(MASS)
+
+nMDS <- isoMDS(d, k=2) 
+
+nMDS$points %>% as.data.frame() %>% ggplot(aes(V1,V2, col=iris0$Species)) + geom_point()
+
+#tSNE
+
+library(Rtsne)
+tsne <- Rtsne(iris_num, dims = 2, perplexity=30, verbose=TRUE, max_iter = 500)
+
+tsne$Y %>% as.data.frame() %>% ggplot(aes(V1,V2, col=iris0$Species)) + geom_point()
+
+```
+
