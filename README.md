@@ -15,3 +15,5 @@ Casi todas las semanas iré agregando una nueva sesión.
 
   - [Clase 4: Ingenieria de
     atributos](../master/Clase4_Ingenieria_de_atributos)
+
+  - [Clase 5: Datos atipicos](../master/Clase5_Datos_atipicos)
