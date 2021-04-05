@@ -57,7 +57,7 @@ summary(results)
     ## Estimation Software: lavaan 
     ## Models estimated: 35 
     ## Replications of final solution: 1 
-    ## Time Required: 86.37 seconds
+    ## Time Required: 62.44 seconds
     ## 
     ## Optimization History:
     ##   run pheromone chisq df pvalue rmsea         srmr      crel
@@ -107,9 +107,9 @@ results$bestFeatures
 ```
 
     ##      Sepal.Length Sepal.Width Petal.Length Petal.Width setosa virginica
-    ## [1,]            0           0            0           0      0         0
+    ## [1,]            0           0            0           0      1         0
     ##      versicolor
-    ## [1,]          1
+    ## [1,]          0
 
 Tambien se puede pronosticar la variable de referencia utilizando una
 funcion de envoltorio o wrapper. Las funciones disponibles se pueden ver
@@ -128,7 +128,7 @@ results$bestFeatures
 ```
 
     ##      Sepal.Length Sepal.Width Petal.Length Petal.Width setosa virginica
-    ## [1,]            0           0            1           0      0         0
+    ## [1,]            0           0            0           1      0         0
     ##      versicolor
     ## [1,]          1
 
@@ -183,8 +183,9 @@ barplot(PCA$sdev) ## graficamos el aporte de varianza de cada componente princip
 predict(PCA) %>% as.data.frame() %>%  ggplot(aes(PC1,PC2, col=iris0$Species)) + geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-2.png)<!-- --> Luego
-escalamiento multidimensional (MDS)
+![](README_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+
+Luego escalamiento multidimensional (MDS)
 
 ``` r
 #MDS

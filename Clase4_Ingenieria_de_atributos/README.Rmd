@@ -5,8 +5,10 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
 library(tidyverse)
 ```
+
 
 La ingenieria de atributos consiste en generar el listado de atributos que se utilizaran en el analisis de datos, a partir del conjunto de atributos originales. 
 
@@ -32,6 +34,7 @@ iris_num$Species <- NULL
 
 
 ```
+
 Primero probaremos el algoritmo de fuerza bruta
 
 ```{r}
@@ -69,6 +72,7 @@ searcher <- searchAlgorithm('hillClimbing')
 
 ```
 
+
 Luego tenemos que definir una variable para filtrar, las variables disponibles estan en 
 ? filterEvaluator
 
@@ -94,6 +98,7 @@ results$bestFeatures
 
 ```
 
+
 Tambien se puede pronosticar la variable de referencia utilizando una funcion de envoltorio o wrapper. Las funciones disponibles se pueden ver en ? wrapperEvaluator
 
 
@@ -111,6 +116,7 @@ results$bestFeatures
 
 
 ```
+
 
 Por ultimo tambien se pueden seleccionar atributos por busquedas directas. 
 
@@ -156,6 +162,8 @@ predict(PCA) %>% as.data.frame() %>%  ggplot(aes(PC1,PC2, col=iris0$Species)) + 
 
 
 ```
+
+
 Luego escalamiento multidimensional (MDS)
 
 ```{r}
@@ -168,6 +176,8 @@ MDS$points %>% as.data.frame() %>% ggplot(aes(V1,V2, col=iris0$Species)) + geom_
 
 ```
 
+
+
 Escalamiento multidimensional no parametrico (n-MDS)
 
 ```{r}
@@ -179,6 +189,8 @@ nMDS <- isoMDS(d, k=2)
 nMDS$points %>% as.data.frame() %>% ggplot(aes(V1,V2, col=iris0$Species)) + geom_point()
 
 ```
+
+
 
 t-distributed stochastic neighbor embedding
 

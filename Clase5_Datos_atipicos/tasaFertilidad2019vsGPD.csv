@@ -1,0 +1,190 @@
+Pais,Abrev,Continente,TasaFertilidad,IngresoPerCapita
+Afghanistan,AF,Asia,4.412,2000
+Albania,AL,Europe,1.705,12500
+Algeria,DZ,Africa,2.65,15200
+Angola,AO,Africa,5.589,6800
+Antigua And Barbuda,AG,North America,2.034,26300
+Argentina,AR,South America,2.268,20900
+Armenia,AM,Asia,1.601,9500
+Aruba,AW,North America,1.796,25300
+Australia,AU,Oceania,1.832,50300
+Austria,AT,Europe,1.511,49900
+Azerbaijan,AZ,Asia,2.036,17500
+Bahamas,BS,North America,1.755,31200
+Bahrain,BH,Asia,1.998,48500
+Bangladesh,BD,Asia,2.067,4200
+Barbados,BB,North America,1.799,18700
+Belarus,BY,Europe,1.706,18900
+Belgium,BE,Europe,1.799,46600
+Belize,BZ,North America,2.459,8300
+Benin,BJ,Africa,4.867,2300
+Bhutan,BT,Asia,2.015,8700
+Bolivia,BO,South America,2.825,7500
+Bosnia And Herzegovina,BA,Europe,1.386,12700
+Botswana,BW,Africa,2.651,17800
+Brazil,BR,South America,1.705,15600
+Brunei,BN,Asia,1.848,78200
+Bulgaria,BG,Europe,1.584,21700
+Burkina Faso,BF,Africa,5.231,1900
+Burundi,BI,Africa,5.577,700
+Cambodia,KH,Asia,2.524,4000
+Cameroon,CM,Africa,4.603,3700
+Canada,CA,North America,1.563,48300
+Central African Republic,CF,Africa,4.754,700
+Chad,TD,Africa,5.797,2300
+Chile,CL,South America,1.765,24500
+China,CN,Asia,1.635,16700
+Colombia,CO,South America,1.827,14500
+Comoros,KM,Africa,4.237,1600
+Costa Rica,CR,North America,1.764,16900
+Croatia,HR,Europe,1.446,24400
+Cuba,CU,North America,1.716,12300
+Curaçao,CW,North America,2.018,15000
+Cyprus,CY,Asia,1.337,37000
+Czech Republic,CZ,Europe,1.566,35500
+Denmark,DK,Europe,1.762,49900
+Djibouti,DJ,Africa,2.758,3600
+Dominican Republic,DO,North America,2.378,16900
+Dr Congo,CD,Africa,5.963,800
+Ecuador,EC,South America,2.444,11500
+Egypt,EG,Africa,3.155,12700
+El Salvador,SV,North America,2.053,8900
+Equatorial Guinea,GQ,Africa,4.554,36000
+Eritrea,ER,Africa,4.027,1600
+Estonia,EE,Europe,1.659,31800
+Ethiopia,ET,Africa,4.025,2200
+Fiji,FJ,Oceania,2.482,9800
+Finland,FI,Europe,1.782,44300
+France,FR,Europe,1.973,43800
+French Polynesia,PF,Oceania,1.99,17000
+Gabon,GA,Africa,3.68,19200
+Gambia,GM,Africa,5.318,1700
+Georgia,GE,Asia,1.971,10700
+Germany,DE,Europe,1.47,50400
+Ghana,GH,Africa,3.893,4700
+Greece,GR,Europe,1.302,27700
+Grenada,GD,North America,2.073,14900
+Guam,GU,Asia,2.319,35600
+Guatemala,GT,North America,2.899,8100
+Guinea,GN,Africa,4.738,2000
+Guinea Bissau,GW,Africa,4.513,1800
+Guyana,GY,South America,2.473,8200
+Haiti,HT,North America,2.848,1800
+Honduras,HN,North America,2.415,5600
+Hong Kong,HK,Asia,1.326,61400
+Hungary,HU,Europe,1.397,29500
+Iceland,IS,Europe,1.921,51800
+India,IN,Asia,2.303,7200
+Indonesia,ID,Asia,2.32,12400
+Iran,IR,Asia,1.621,20200
+Iraq,IQ,Asia,4.266,17000
+Ireland,IE,Europe,1.98,75500
+Israel,IL,Asia,2.92,36300
+Italy,IT,Europe,1.491,38100
+Ivory Coast,CI,Africa,4.811,3900
+Jamaica,JM,North America,1.991,9200
+Japan,JP,Asia,1.478,42800
+Jordan,JO,Asia,3.264,12500
+Kazakhstan,KZ,Asia,2.571,26300
+Kenya,KE,Africa,3.774,3500
+Kiribati,KI,Oceania,3.584,2000
+Kuwait,KW,Asia,1.967,66200
+Kyrgyzstan,KG,Asia,2.909,3700
+Laos,LA,Asia,2.623,7400
+Latvia,LV,Europe,1.57,27600
+Lebanon,LB,Asia,1.704,19400
+Lesotho,LS,Africa,3.013,3600
+Liberia,LR,Africa,4.481,1400
+Libya,LY,Africa,2.208,10000
+Lithuania,LT,Europe,1.661,32300
+Luxembourg,LU,Europe,1.594,106300
+Macau,MO,Asia,1.347,111600
+Macedonia,MK,Europe,1.546,14900
+Madagascar,MG,Africa,4.109,1600
+Malawi,MW,Africa,4.492,1200
+Malaysia,MY,Asia,2.01,29000
+Maldives,MV,Asia,2.025,19100
+Mali,ML,Africa,5.922,2200
+Malta,MT,Europe,1.475,42000
+Mauritania,MR,Africa,4.576,4400
+Mauritius,MU,Africa,1.433,21600
+Mexico,MX,North America,2.136,19900
+Micronesia,FM,Asia,3.076,3400
+Moldova,MD,Europe,1.23,5700
+Mongolia,MN,Asia,2.663,13000
+Montenegro,ME,Europe,1.657,17700
+Morocco,MA,Africa,2.425,8600
+Mozambique,MZ,Africa,5.143,1200
+Namibia,NM,Africa,3.311,11300
+Nepal,NP,Asia,2.083,2700
+Netherlands,NL,Europe,1.75,53600
+New Caledonia,NC,Oceania,2.142,31100
+New Zealand,NZ,Oceania,1.974,38900
+Nicaragua,NI,North America,2.161,5800
+Niger,NE,Africa,7.153,1200
+Nigeria,NG,Africa,5.417,5900
+North Korea,KP,Asia,1.893,1700
+Norway,NO,Europe,1.827,71800
+Oman,OM,Asia,2.537,45200
+Pakistan,PK,Asia,3.377,5400
+Panama,PA,North America,2.469,25400
+Papua New Guinea,PG,Oceania,3.588,3700
+Paraguay,PY,South America,2.446,9800
+Peru,PE,South America,2.354,13300
+Philippines,PH,Asia,2.882,8300
+Poland,PL,Europe,1.29,29500
+Portugal,PT,Europe,1.241,30400
+Puerto Rico,PR,North America,1.47,37300
+Qatar,QA,Asia,1.881,124500
+Republic Of The Congo,CG,Africa,4.561,6600
+Romania,RO,Europe,1.54,24500
+Russia,RU,Asia,1.751,27800
+Rwanda,RW,Africa,3.781,2100
+Saint Lucia,KN,North America,1.444,14400
+Saint Vincent And The Grenadines,VC,North America,1.902,11500
+Samoa,WS,Oceania,3.903,5700
+Sao Tome And Principe,ST,Africa,4.361,3200
+Saudi Arabia,SA,Asia,2.481,54800
+Senegal,SN,Africa,4.647,2700
+Serbia,RS,Europe,1.62,15000
+Seychelles,SC,Africa,2.257,28900
+Sierra Leone,SL,Africa,4.319,1600
+Singapore,SG,Asia,1.26,93900
+Slovakia,SK,Europe,1.462,33000
+Slovenia,SI,Europe,1.638,34400
+Solomon Islands,SB,Oceania,3.77,2200
+South Africa,ZA,Africa,2.414,13500
+South Korea,KR,Asia,1.323,39400
+South Sudan,SS,Africa,4.736,1500
+Spain,ES,Europe,1.391,38300
+Sri Lanka,LK,Asia,2.029,12800
+Sudan,SD,Africa,4.434,4600
+Suriname,SR,South America,2.336,14600
+Sweden,SE,Europe,1.909,51500
+Switzerland,CH,Europe,1.549,61400
+Syria,SY,Asia,2.84,2900
+Taiwan,TW,Asia,1.218,50300
+Tajikistan,TJ,Asia,3.28,3200
+Tanzania,TZ,Africa,4.924,3200
+Thailand,TH,Asia,1.458,17900
+Timor Leste,TL,Asia,5.337,5400
+Togo,TG,Africa,4.351,1700
+Tonga,TO,Oceania,3.576,5600
+Trinidad And Tobago,TT,North America,1.73,31400
+Tunisia,TN,Africa,2.147,11800
+Turkey,TR,Asia,2.024,26900
+Turkmenistan,TM,Asia,2.785,18100
+Uganda,UG,Africa,5.456,2400
+Ukraine,UA,Europe,1.557,8700
+United Arab Emirates,AE,Asia,1.725,67700
+United Kingdom,UK,Europe,1.871,44100
+United States,US,North America,1.886,59500
+Uruguay,UY,South America,1.979,22400
+Uzbekistan,UZ,Asia,2.244,6900
+Vanuatu,VU,Oceania,3.222,2700
+Venezuela,VE,South America,2.283,12100
+Vietnam,VN,Asia,1.946,6900
+Western Sahara,EH,Africa,2.415,2500
+Yemen,YE,Asia,3.837,1300
+Zambia,ZM,Africa,4.901,4000
+Zimbabwe,ZW,Africa,3.626,2300
