@@ -1,0 +1,7 @@
+"0","#This is a ggplot package, so we can adjust some values
+fviz_silhouette(coefSil) + coord_flip()
+"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"

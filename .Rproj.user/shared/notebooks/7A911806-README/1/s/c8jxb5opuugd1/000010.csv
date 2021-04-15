@@ -1,0 +1,14 @@
+"0","for(k in 1:50){
+  modelo <- kmeans(data_escala, centers = k)
+  SSinterior[k] <- modelo$tot.withinss
+}
+"
+"2","did not converge in 10 iterations"
+"2","did not converge in 10 iterations"
+"2","did not converge in 10 iterations"
+"2","did not converge in 10 iterations"
+"0","for(k in 1:50){"
+"0","  modelo <- kmeans(data_escala, centers = k)"
+"2","did not converge in 10 iterations"
+"2","did not converge in 10 iterations"
+"0","plot(SSinterior)"

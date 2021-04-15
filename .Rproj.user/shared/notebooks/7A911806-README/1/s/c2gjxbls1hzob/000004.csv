@@ -1,0 +1,11 @@
+"0","
+
+data$User_Score <- as.numeric(data$User_Score)
+"
+"2","NAs introducidos por coerción"
+"0",""
+"0","data <- data %>% filter(!(is.na(Critic_Score) | is.na(User_Score))) %>% select(-Global_Sales)"
+"0",""
+"0","data_numerica <- data[,c(6:9, 10, 12)]"
+"0",""
+"0","data_escala = scale(data_numerica) %>% as_tibble()"
