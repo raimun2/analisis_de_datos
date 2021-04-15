@@ -45,7 +45,7 @@ summary(data)
     ##                     Max.   :10665.0                                        
     ##                     NA's   :9129
 
-Para clusterizar vamos a seleccoinar las variables de ventas y las
+Para clusterizar vamos a seleccionar las variables de ventas y las
 evaluaciones de cada videojuego. Para analizar el comportamiento vamos a
 excluir ventas globales ya que es una variable linealmente dependiente
 del resto de las ventas.
