@@ -21,6 +21,7 @@ Para clusterizar vamos a seleccoinar las variables de ventas y las evaluaciones 
 
 
 Antes de clusterizar debemos preparar la data:
+
 - Eliminando datos faltantes. 
 
 - Pasar User_score a numerico.
@@ -76,7 +77,9 @@ plot(SSinterior)
 
 ## Evaluacion
 
-Existen diversos metodos de evaluacion de calidad de los clusters resultantes. El primero que revisaremos es la inspeccion visual
+Existen diversos metodos de evaluacion de calidad de los clusters resultantes. 
+
+El primero que revisaremos es la inspeccion visual
 
 ```{r}
 
@@ -121,13 +124,13 @@ tempMatrix <- matrix(0, nrow = nrow(data_escala), ncol = nrow(data_escala))
 tempMatrix[which(index$x==1), which(index$x==1)]  <- 1
 tempMatrix[which(index$x==2), which(index$x==2)]  <- 1
 tempMatrix[which(index$x==3), which(index$x==3)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==4)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==5)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==6)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==7)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==8)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==9)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==10)] <- 1
+tempMatrix[which(index$x==4), which(index$x==4)]  <- 1
+tempMatrix[which(index$x==5), which(index$x==5)]  <- 1
+tempMatrix[which(index$x==6), which(index$x==6)]  <- 1
+tempMatrix[which(index$x==7), which(index$x==7)]  <- 1
+tempMatrix[which(index$x==8), which(index$x==8)]  <- 1
+tempMatrix[which(index$x==9), which(index$x==9)]  <- 1
+tempMatrix[which(index$x==10), which(index$x==10)] <- 1
 
 #construyo matriz de disimilitud
 tempDist2 <- 1/(1+tempDist)
@@ -142,7 +145,7 @@ print(cor)
 Tambien implementaremos indice de cohesion y el de separacion, que son muy similares.
 
 ```{r}
-library(flexclust) # usaremos la distancia implementada en flexclus (dist2) que maneja mejor objetos de diferrente tamaño
+library(flexclust) # usaremos la distancia implementada en flexclus (dist2) que maneja mejor objetos de diferente tamaño
 data_escala <- apply(data_escala,2,as.numeric)
  
 #Cohesion

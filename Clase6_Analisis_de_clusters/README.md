@@ -45,13 +45,14 @@ summary(data)
     ##                     Max.   :10665.0                                        
     ##                     NA's   :9129
 
-Para clusterizar vamos a seleccionar las variables de ventas y las
+Para clusterizar vamos a seleccoinar las variables de ventas y las
 evaluaciones de cada videojuego. Para analizar el comportamiento vamos a
 excluir ventas globales ya que es una variable linealmente dependiente
 del resto de las ventas.
 
-Antes de clusterizar debemos preparar la data: - Eliminando datos
-faltantes.
+Antes de clusterizar debemos preparar la data:
+
+  - Eliminando datos faltantes.
 
   - Pasar User\_score a numerico.
 
@@ -117,13 +118,7 @@ for(k in 1:50){
   modelo <- kmeans(data_escala, centers = k)
   SSinterior[k] <- modelo$tot.withinss
 }
-```
 
-    ## Warning: did not converge in 10 iterations
-    
-    ## Warning: did not converge in 10 iterations
-
-``` r
 plot(SSinterior)
 ```
 
@@ -132,7 +127,9 @@ plot(SSinterior)
 ## Evaluacion
 
 Existen diversos metodos de evaluacion de calidad de los clusters
-resultantes. El primero que revisaremos es la inspeccion visual
+resultantes.
+
+El primero que revisaremos es la inspeccion visual
 
 ``` r
 # uso distancia euclidiana
@@ -182,13 +179,13 @@ tempMatrix <- matrix(0, nrow = nrow(data_escala), ncol = nrow(data_escala))
 tempMatrix[which(index$x==1), which(index$x==1)]  <- 1
 tempMatrix[which(index$x==2), which(index$x==2)]  <- 1
 tempMatrix[which(index$x==3), which(index$x==3)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==4)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==5)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==6)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==7)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==8)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==9)]  <- 1
-tempMatrix[which(index$x==3), which(index$x==10)] <- 1
+tempMatrix[which(index$x==4), which(index$x==4)]  <- 1
+tempMatrix[which(index$x==5), which(index$x==5)]  <- 1
+tempMatrix[which(index$x==6), which(index$x==6)]  <- 1
+tempMatrix[which(index$x==7), which(index$x==7)]  <- 1
+tempMatrix[which(index$x==8), which(index$x==8)]  <- 1
+tempMatrix[which(index$x==9), which(index$x==9)]  <- 1
+tempMatrix[which(index$x==10), which(index$x==10)] <- 1
 
 #construyo matriz de disimilitud
 tempDist2 <- 1/(1+tempDist)
@@ -199,13 +196,13 @@ cor <- cor(tempMatrix[upper.tri(tempMatrix)],tempDist2[upper.tri(tempDist2)])
 print(cor)
 ```
 
-    ## [1] 0.1009702
+    ## [1] 0.4137548
 
 Tambien implementaremos indice de cohesion y el de separacion, que son
 muy similares.
 
 ``` r
-library(flexclust) # usaremos la distancia implementada en flexclus (dist2) que maneja mejor objetos de diferrente tamaño
+library(flexclust) # usaremos la distancia implementada en flexclus (dist2) que maneja mejor objetos de diferente tamaño
 ```
 
     ## Warning: package 'flexclust' was built under R version 4.0.5
@@ -232,7 +229,7 @@ cohesion = sum(withinCluster)
 print(c(cohesion, modelo_kmeans$tot.withinss))
 ```
 
-    ## [1] 12747.56 12747.56
+    ## [1] 12776.01 12776.01
 
 ``` r
 #Separation
@@ -247,7 +244,7 @@ separation = sum(SSB)
 print(separation)
 ```
 
-    ## [1] 81923.38
+    ## [1] 79114.97
 
 Y finalmente aplicamos el coeficiente de silueta, implementado en
 libreria cluser
@@ -261,13 +258,13 @@ summary(coefSil)
 
     ## Silhouette of 7017 units in 10 clusters from silhouette.default(x = modelo_kmeans$cluster, dist = dist(data_escala)) :
     ##  Cluster sizes and average silhouette widths:
-    ##       1348         50       1911        390         43       1026        374 
-    ## 0.65669514 0.19677970 0.56619182 0.15087849 0.24530441 0.56989617 0.46106490 
-    ##       1376        486         13 
-    ## 0.54324082 0.38123325 0.07621577 
+    ##        787       1262        884         13       1587         52       1613 
+    ## 0.44049456 0.51842811 0.48411666 0.02392717 0.52890014 0.22518957 0.65475803 
+    ##         36        404        379 
+    ## 0.28749821 0.27302134 0.71001054 
     ## Individual silhouette widths:
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ## -0.1540  0.4705  0.5855  0.5326  0.6412  0.7476
+    ## -0.2327  0.4469  0.5606  0.5310  0.6290  0.7901
 
 ``` r
 #visualizamos el codigo de silueta de cada cluster
@@ -275,16 +272,16 @@ fviz_silhouette(coefSil) + coord_flip()
 ```
 
     ##    cluster size ave.sil.width
-    ## 1        1 1348          0.66
-    ## 2        2   50          0.20
-    ## 3        3 1911          0.57
-    ## 4        4  390          0.15
-    ## 5        5   43          0.25
-    ## 6        6 1026          0.57
-    ## 7        7  374          0.46
-    ## 8        8 1376          0.54
-    ## 9        9  486          0.38
-    ## 10      10   13          0.08
+    ## 1        1  787          0.44
+    ## 2        2 1262          0.52
+    ## 3        3  884          0.48
+    ## 4        4   13          0.02
+    ## 5        5 1587          0.53
+    ## 6        6   52          0.23
+    ## 7        7 1613          0.65
+    ## 8        8   36          0.29
+    ## 9        9  404          0.27
+    ## 10      10  379          0.71
 
 ![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 

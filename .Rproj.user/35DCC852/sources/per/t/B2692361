@@ -3,7 +3,7 @@
     "path": "C:/Users/raimu/Dropbox/01.Docencia/2021.1.analisis_de_datos/analisis_de_datos/Clase6_Analisis_de_clusters/README.Rmd",
     "project_path": "Clase6_Analisis_de_clusters/README.Rmd",
     "type": "r_markdown",
-    "hash": "144965539",
+    "hash": "2224558126",
     "contents": "",
     "dirty": false,
     "created": 1618257528776.0,
@@ -11,16 +11,16 @@
     "relative_order": 1,
     "properties": {
         "tempName": "Untitled1",
-        "cursorPosition": "181,2",
-        "scrollLine": "180",
-        "last_setup_crc32": "157A6FEDbb338d19"
+        "cursorPosition": "81,0",
+        "scrollLine": "70",
+        "last_setup_crc32": ""
     },
     "folds": "",
-    "lastKnownWriteTime": 1618525803,
+    "lastKnownWriteTime": 1618583222,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1618525803140,
+    "last_content_update": 1618583222953,
     "read_only": false,
     "read_only_alternatives": []
 }
