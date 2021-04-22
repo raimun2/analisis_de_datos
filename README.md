@@ -20,3 +20,6 @@ Casi todas las semanas iré agregando una nueva sesión.
 
   - [Clase 6: Analisis de
     clusters](../master/Clase6_Analisis_de_clusters)
+
+  - [Clase 7: Clusters
+    jerarquicos](../master/Clase7_Clustes_jerarquicos)
