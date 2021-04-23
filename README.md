@@ -22,4 +22,4 @@ Casi todas las semanas iré agregando una nueva sesión.
     clusters](../master/Clase6_Analisis_de_clusters)
 
   - [Clase 7: Clusters
-    jerarquicos](../master/Clase7_Clustes_jerarquicos)
+    jerarquicos](../master/Clase7_Clusters_jerarquicos)
