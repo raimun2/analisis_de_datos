@@ -1,0 +1,18 @@
+"0","#Hierarchical
+d = dist(data_escalada)
+
+#Applying the model
+model_complete = hclust(d, method=""complete"") 
+model_ward = hclust(d, method=""ward.D"") 
+model_ward2 = hclust(d, method=""ward.D2"") 
+model_single = hclust(d, method=""single"")
+model_average = hclust(d, method=""average"") 
+model_mcquitty = hclust(d, method=""mcquitty"") 
+model_median = hclust(d, method=""median"") 
+model_centroid = hclust(d, method=""centroid"") 
+
+ggdendrogram(model_complete) 
+"
+"2","Error in (function (filename = ""Rplot%03d.png"", width = 480, height = 480,  : 
+  unable to start png() device
+"

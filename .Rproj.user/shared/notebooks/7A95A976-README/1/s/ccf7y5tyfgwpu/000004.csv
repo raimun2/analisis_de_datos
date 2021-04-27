@@ -1,0 +1,11 @@
+"0","data_escalada  <- read.csv(""video_games_sales.csv"") %>% 
+  mutate(User_Score = as.numeric(User_Score)) %>% 
+  filter(!(is.na(Critic_Score) | is.na(User_Score))) %>% 
+  select(-Global_Sales) %>% 
+  select(c(6:9, 10, 12)) %>% 
+  scale() %>% 
+  as_tibble()
+"
+"2","Problem with `mutate()` input `User_Score`.
+[34mi[39m NAs introducidos por coerción
+[34mi[39m Input `User_Score` is `as.numeric(User_Score)`."

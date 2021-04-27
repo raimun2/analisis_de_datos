@@ -1,0 +1,6 @@
+"0","(FPC <- sum(matriz*diag(nrow(matriz)))/nrow(matriz))
+"
+"1","[1]"
+"1"," 5.660539"
+"1","
+"

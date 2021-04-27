@@ -23,4 +23,7 @@ Casi todas las semanas iré agregando una nueva sesión.
 
 - [Clase 6: Analisis de clusters](../master/Clase6_Analisis_de_clusters)
 
-- [Clase 7: Clusters jerarquicos](../master/Clase7_Clustes_jerarquicos)
+- [Clase 7: Clusters jerarquicos](../master/Clase7_Clusters_jerarquicos)
+
+- [Clase 8: Clusters probabilisticos](../master/Clase8_Clusters_probabilisticos)
+
