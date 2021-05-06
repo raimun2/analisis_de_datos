@@ -26,3 +26,6 @@ Casi todas las semanas iré agregando una nueva sesión.
 
   - [Clase 8: Clusters
     probabilisticos](../master/Clase8_Clusters_probabilisticos)
+
+  - [Clase 9: Analisis de
+    regresion](../master/Clase9_Analisis_de_regresion)
