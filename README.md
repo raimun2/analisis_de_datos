@@ -29,3 +29,6 @@ Casi todas las semanas iré agregando una nueva sesión.
 
   - [Clase 9: Analisis de
     regresion](../master/Clase9_Analisis_de_regresion)
+
+  - [Clase 10: Analisis de
+    clasificacion](../master/Clase10_Analisis_de_clasificacion)

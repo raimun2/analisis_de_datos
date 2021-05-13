@@ -1,0 +1,97 @@
+---
+title: "Analisis de clasifiación"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Para el analisis de clasificacion vamos a volver a utilizar datos de propiedades, pero esta vez tienen una columna adicional.
+
+Vamos a cargar la propiedades y echarle un vistazo con la funcion glimpse
+
+```{r, message = FALSE, warning=FALSE}
+library(tidyverse)
+
+propiedades <- read_csv("propiedades2.csv")
+
+propiedades %>% glimpse()
+
+```
+
+Vemos que los datos ahora traen una columna que se llama es_depto, la cual tiene valores TRUE o FALSE. Esto representa si son departamentos o casas. 
+
+Ahora vamos a ver si podemos clasificar las entidades en departamentos o casas utilizando un modelo de clasificacion. En particular utilizaremos una regresion logistica. 
+
+El primer modelo lo haremos con una funcion logistica simple, la cual se hace con la funcion glm que esta en R base
+
+```{r}
+
+modelo_logistico <- glm(es_depto ~ Terreno, propiedades, family = "binomial")
+
+summary(modelo_logistico)
+
+```
+
+Los resultados de la regresion nos dicen que tanto el intercepto como el terreno son variables estadisticamente significativas para clasificar una propiedad.
+
+Este modelo no entrega un coeficiente de determinacion ya que este valor no tiene sentido en los problemas de clasificacion. Dado esto, para calcular la bondad del modelo vamos a calcular el valor del area bajo la curva ROC, conocida como AUC. 
+
+Este calculo esta implementado en la libreria pROC
+
+```{r}
+library(pROC)
+
+prob <- predict(modelo_logistico,type=c("response"))
+
+propiedades$prob <- prob
+
+curva_roc <- roc(es_depto ~ prob, data = propiedades)
+
+plot(curva_roc)    
+
+auc(curva_roc)
+
+```
+Vemos que el valor del AUC es de 93%, lo que significa que el modelo tiene un gran poder de clasificacion. Ahora vamos a ver si la AUC mejora al incorporar mas variables, utilizando un modelo logistico multivariable. 
+
+
+```{r}
+
+modelo_logistico_multi <- glm(es_depto ~ ., propiedades, family = "binomial")
+
+summary(modelo_logistico_multi)
+
+propiedades$prob_multi <- predict(modelo_logistico_multi, type=c("response"))
+
+auc(roc(es_depto ~ prob_multi, data = propiedades))
+
+
+```
+
+Al incluir todas las variables vemos que algunas de ellas tienen significancia estadistica, pero otras no, por lo que deberian ser descartadas en el modelo. 
+
+El AUC mejoro desde un 93% a un 98%, lo que significa que en el 98% de lo casos las entidades son clasificadas de manera exitosa. Estos resultados pueden darse debido a sobreentrenamiento del modelo, por lo que haremos la prueba con un conjunto de entrenamiento y un conjunto de prueba.
+
+
+```{r}
+set.seed(42)
+muestra <- sample(1:nrow(propiedades), nrow(propiedades)*.8)
+
+data_train <- propiedades[muestra,]
+data_test <- propiedades[-muestra,]
+
+modelo_logistico_multi <- glm(es_depto ~ Precio + Terreno + Construido + Año_Construccion + colegio_15m, propiedades, family = "binomial")
+
+summary(modelo_logistico_multi)
+
+data_test$prob_multi <- predict(modelo_logistico_multi, data_test, type=c("response"))
+
+auc(roc(es_depto ~ prob_multi, data = data_test))
+
+
+```
+
+Vemos que el AUC bajo un poco de 98.9% a 98.4% pero sigue siendo un excelente resultado, y dado que el conjunto de entrenamiento era diferente al conjunto de prueba, podemos decir que el modelo no estaba sobre entrenado. 
+

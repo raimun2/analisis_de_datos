@@ -1,0 +1,14 @@
+"0","auc(roc(es_depto ~ prob_multi, data = propiedades))
+"
+"2","Setting levels: control = FALSE, case = TRUE
+"
+"2","Setting direction: controls < cases
+"
+"1","Area under the curve: "
+"1",""
+"1","0.9896"
+"1",""
+"1",""
+"1",""
+"1","
+"
