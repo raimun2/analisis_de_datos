@@ -59,6 +59,8 @@ Vemos que el valor del AUC es de 93%, lo que significa que el modelo tiene un gr
 
 ```{r}
 
+propiedades$prob <- NULL
+
 modelo_logistico_multi <- glm(es_depto ~ ., propiedades, family = "binomial")
 
 summary(modelo_logistico_multi)
@@ -82,7 +84,7 @@ muestra <- sample(1:nrow(propiedades), nrow(propiedades)*.8)
 data_train <- propiedades[muestra,]
 data_test <- propiedades[-muestra,]
 
-modelo_logistico_multi <- glm(es_depto ~ Precio + Terreno + Construido + Año_Construccion + colegio_15m, propiedades, family = "binomial")
+modelo_logistico_multi <- glm(es_depto ~ Precio + Terreno + Construido + Año_Construccion + colegio_15m, data_train, family = "binomial")
 
 summary(modelo_logistico_multi)
 
