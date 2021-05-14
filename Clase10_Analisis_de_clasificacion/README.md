@@ -1,4 +1,4 @@
-Analisis de clasifiación
+Analisis de clasificación
 ================
 
 Para el analisis de clasificacion vamos a volver a utilizar datos de
