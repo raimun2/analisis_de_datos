@@ -1,0 +1,22 @@
+"0","
+testData$prob <- NULL
+
+clasetrain <- factor(trainData$Exited)
+clasetest <- factor(testData$Exited)
+
+trainData <-  scale(trainData) %>% data.frame()
+testData <- scale(testData) %>% data.frame()
+
+modeloknn <- knn(trainData[,-10], testData[,-10], cl = clasetrain, k = 15, prob = TRUE)
+
+testData$prob <- modeloknn %>% as.character() %>% as.numeric()
+
+testData$Exited <- clasetest %>% as.character() %>% as.numeric()
+
+curva_roc <- roc(Exited ~ prob, data = testData)
+"
+"2","Setting levels: control = 0, case = 1
+"
+"2","Setting direction: controls < cases
+"
+"0","plot(curva_roc)    "

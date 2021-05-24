@@ -1,8 +1,0 @@
-"0","#Calcula el hopkins statistic 
-res <- get_clust_tendency(data_numerica, n = 30, graph = FALSE)
-#Calcula el hopkins statistic 
-res <- get_clust_tendency(data_numerica, n = 30, graph = FALSE)
-print(res)
-"
-"1","$hopkins_stat
-"

@@ -1,6 +1,0 @@
-"0","# calculo el test de grub sobre la variable TasaFertilidad
-dataOutlier2 = grubbs.test(data$TasaFertilidad, two.sided=F, type = 2)
-"
-"2","Error in grubbs.test(data$TasaFertilidad, two.sided = F, type = 2) : 
-  Incorrect type
-"
