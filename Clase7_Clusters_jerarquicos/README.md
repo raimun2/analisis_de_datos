@@ -9,10 +9,18 @@ library(tidyverse)
 
     ## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
 
-    ## v ggplot2 3.3.2     v purrr   0.3.4
-    ## v tibble  3.0.5     v dplyr   1.0.3
-    ## v tidyr   1.1.2     v stringr 1.4.0
+    ## v ggplot2 3.3.3     v purrr   0.3.4
+    ## v tibble  3.1.1     v dplyr   1.0.5
+    ## v tidyr   1.1.3     v stringr 1.4.0
     ## v readr   1.4.0     v forcats 0.5.0
+
+    ## Warning: package 'ggplot2' was built under R version 4.0.5
+
+    ## Warning: package 'tibble' was built under R version 4.0.5
+
+    ## Warning: package 'tidyr' was built under R version 4.0.5
+
+    ## Warning: package 'dplyr' was built under R version 4.0.5
 
     ## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
@@ -28,9 +36,7 @@ data_escalada  <- read.csv("video_games_sales.csv") %>%
   as_tibble()
 ```
 
-    ## Warning: Problem with `mutate()` input `User_Score`.
-    ## i NAs introducidos por coerción
-    ## i Input `User_Score` is `as.numeric(User_Score)`.
+    ## Warning in mask$eval_all_mutate(quo): NAs introducidos por coerción
 
 ``` r
 data_escalada %>% head()
