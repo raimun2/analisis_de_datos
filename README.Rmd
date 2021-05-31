@@ -11,23 +11,27 @@ En este repositorio estan los apuntos del curso de Análisis de Datos que estoy 
 
 Casi todas las semanas iré agregando una nueva sesión.
 
-- [Clase 1: Introduccion](../master/Clase1_Introduccion)
+- [1: Introduccion](../master/01.Introduccion)
 
-- [Clase 2: Tipos de datos](../master/Clase2_Tipos_de_datos)
+- [2: Tipos de datos](../master/02.Tipos_de_datos)
 
-- [Clase 3: Exploracion de datos](../master/Clase3_Exploracion_de_datos)
+- [3: Exploracion de datos](../master/03.Exploracion_de_datos)
 
-- [Clase 4: Ingenieria de atributos](../master/Clase4_Ingenieria_de_atributos)
+- [4: Ingenieria de atributos](../master/04.Ingenieria_de_atributos)
 
-- [Clase 5: Datos atipicos](../master/Clase5_Datos_atipicos)
+- [5: Datos atipicos](../master/05.Datos_atipicos)
 
-- [Clase 6: Analisis de clusters](../master/Clase6_Analisis_de_clusters)
+- [6: Analisis de clusters](../master/06.Analisis_de_clusters)
 
-- [Clase 7: Clusters jerarquicos](../master/Clase7_Clusters_jerarquicos)
+- [7: Clusters jerarquicos](../master/07.Clusters_jerarquicos)
 
-- [Clase 8: Clusters probabilisticos](../master/Clase8_Clusters_probabilisticos)
+- [8: Clusters probabilisticos](../master/08.Clusters_probabilisticos)
 
-- [Clase 9: Analisis de regresion](../master/Clase9_Analisis_de_regresion)
+- [9: Analisis de regresion](../master/09.Analisis_de_regresion)
 
-- [Clase 10: Analisis de clasificacion](../master/Clase10_Analisis_de_clasificacion)
+- [10: Analisis de clasificacion](../master/10.Analisis_de_clasificacion)
+
+- [11: Modelamiento parametrico](../master/11.Modelamiento_parametrico)
+
+- [12: Arboles de decision](../master/12.Arboles_de_decision)
 
