@@ -1,0 +1,111 @@
+---
+title: "Maquinas de soporte vectorial"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Para el capitulo de Maquinas de soporte vectorial vamos a seguir utilizando la data de Churn, o fuga de clientes. Antes de cargar la data, invocamos la tibreria Tidyverse. Luego de cargar la data, la limpiamos un poco y le echamos un vistazo. 
+
+```{r, message= FALSE, warning = FALSE}
+#tidymodels
+library(tidyverse)
+
+data <- read_csv("../data/Churn_Modelling.csv") %>% 
+  mutate(is_female = ifelse(Gender == "Female",1,0),
+         Exited = as.factor(Exited)) %>% 
+        select(-RowNumber, -Surname, -Geography, -Gender, -CustomerId) %>% 
+  relocate(Exited)
+ 
+data %>% glimpse()
+
+```
+
+Vamos a implementar las SVM utilizando la libreria tidymodels, para mantener la sintaxis que hemos utilizado hasta ahora
+
+```{r, message= FALSE, warning=FALSE}
+library(tidymodels)
+library(discrim) 
+set.seed(42)
+data_split <- initial_split(data, prop = 3/4)
+
+# Create data frames for the two sets:
+train_data <- training(data_split)
+test_data  <- testing(data_split)
+
+nrow(test_data)
+train_data %>% nrow()
+```
+
+Vamos a crear la receta de la maquina de soporte vectorial, que es igual a la clase pasada.
+
+Para el modelo utilizamos la funcion svm_poly que permite crear kernels polinomicos. Para el caso lineal es equivalente a un polinomio de grado 1. 
+
+```{r}
+receta <- 
+  recipe(Exited ~ ., data = train_data) 
+
+receta
+
+modelo <- svm_poly(degree = 1) %>% 
+  set_engine("kernlab") %>% 
+  set_mode("classification") %>% 
+  translate()
+
+
+modelo
+```
+Ahora probaremos la funcion fitea que creamos la clase pasada con este modelo polinomico de grado 1 (lineal)
+
+```{r}
+fitea <- function(mod){
+  
+  modelo_fit <- 
+  workflow() %>% 
+  add_model(mod) %>% 
+  add_recipe(receta) %>% 
+  fit(data = train_data)
+
+model_pred <- 
+  predict(modelo_fit, test_data, type = "prob") %>% 
+  bind_cols(test_data) 
+
+return(model_pred %>% 
+  roc_auc(truth = Exited, .pred_0))
+}
+
+fitea(modelo)
+```
+
+Ahora modifiquemos la funcion fitea para probar diferentes grados de polinomio, con grado 1, 2 o 3
+
+```{r}
+fitea_polySVM <- function(grado){
+  
+  mod <- svm_poly(degree = grado) %>% 
+  set_engine("kernlab") %>% 
+  set_mode("classification") %>% 
+  translate()
+  
+  modelo_fit <- 
+  workflow() %>% 
+  add_model(mod) %>% 
+  add_recipe(receta) %>% 
+  fit(data = train_data)
+
+model_pred <- 
+  predict(modelo_fit, test_data, type = "prob") %>% 
+  bind_cols(test_data) 
+
+return(model_pred %>% 
+  roc_auc(truth = Exited, .pred_0))
+}
+
+fitea_polySVM(1)
+fitea_polySVM(2)
+fitea_polySVM(3)
+
+```
+Vemos que el modelo de grado 2 tiene un AUC de .80, equivalente al de grado 3
