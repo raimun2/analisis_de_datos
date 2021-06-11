@@ -31,3 +31,6 @@ Casi todas las semanas iré agregando una nueva sesión.
     parametrico](../master/11.Modelamiento_parametrico)
 
   - [12: Arboles de decision](../master/12.Arboles_de_decision)
+
+  - [13: Maquinas de soporte
+    vectorial](../master/13.Maquinas_de_soporte_vectorial)
