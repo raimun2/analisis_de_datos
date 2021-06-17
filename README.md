@@ -34,3 +34,5 @@ Casi todas las semanas iré agregando una nueva sesión.
 
   - [13: Maquinas de soporte
     vectorial](../master/13.Maquinas_de_soporte_vectorial)
+
+  - [14: Redes neuronales](../master/14.Redes_neuronales)

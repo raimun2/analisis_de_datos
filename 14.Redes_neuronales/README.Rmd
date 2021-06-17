@@ -1,0 +1,137 @@
+---
+title: "Redes Neuronales"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Para el capitulo de redes neuronales vamos a seguir utilizando la data de Churn, o fuga de clientes. Antes de cargar la data, invocamos la tibreria Tidyverse. Luego de cargar la data, la limpiamos un poco y le echamos un vistazo. 
+
+```{r, message= FALSE, warning = FALSE}
+library(tidyverse)
+
+data <- read_csv("../data/Churn_Modelling.csv") %>% 
+  mutate(is_female = ifelse(Gender == "Female",1,0),
+         Exited = as.factor(Exited)) %>% 
+        select(-RowNumber, -Surname, -Geography, -Gender, -CustomerId) %>% 
+  relocate(Exited)
+ 
+data %>% glimpse()
+
+```
+
+Vamos a implementar las RRNN utilizando la libreria tidymodels, para mantener la sintaxis que hemos utilizado hasta ahora
+
+```{r, message= FALSE, warning=FALSE}
+library(tidymodels)
+library(discrim) 
+set.seed(42)
+data_split <- initial_split(data, prop = 3/4)
+
+# Create data frames for the two sets:
+train_data <- training(data_split)
+test_data  <- testing(data_split)
+
+nrow(test_data)
+train_data %>% nrow()
+```
+Tambien utilizaremos la funcion fitea que creamos la clase pasada
+
+```{r}
+fitea <- function(mod){
+  
+  modelo_fit <- 
+  workflow() %>% 
+  add_model(mod) %>% 
+  add_recipe(receta) %>% 
+  fit(data = train_data)
+
+model_pred <- 
+  predict(modelo_fit, test_data, type = "prob") %>% 
+  bind_cols(test_data) 
+
+return(model_pred %>% 
+  roc_auc(truth = Exited, .pred_0))
+}
+
+```
+
+Ahora creamos la receta, igual que los casos anteriores, y finalmente el modelo de perpectron multicala (multi-layer perceptron o mlp)
+
+```{r}
+receta <- 
+  recipe(Exited ~ ., data = train_data)
+
+receta
+
+modelo <- mlp(hidden_units  = 5) %>% 
+  set_engine("nnet") %>% 
+  set_mode("classification") %>% 
+  translate()
+
+
+fitea(modelo)
+```
+
+Vemos el AUC es bien deficiente. Esto se debe a que las redes neuronales necesitan que la data de entrada venga escalada entre -1 y 1, dada la naturaleza de sus funciones de activacion. agregamos los pasos de escalamiento en la receta y probamos el mismo modelo. 
+
+```{r}
+receta <- 
+  recipe(Exited ~ ., data = train_data) %>% 
+  step_center(all_predictors()) %>% 
+  step_scale(all_predictors())
+
+receta
+
+modelo <- mlp(hidden_units  = 5) %>% 
+  set_engine("nnet") %>% 
+  set_mode("classification") %>% 
+  translate()
+
+
+fitea(modelo)
+```
+
+Mejoro bastante el AUC, ahora veremos si el numero de neuronas permite mejorar el resultado obtenido hasta ahora. Para esto, crearemos una funcion que fitea el modelo dependiendo del numero de neuronas en la capa oculta. 
+
+```{r}
+fiteaNN <- function(hid){
+  
+  mod <- mlp(hidden_units  = hid) %>% 
+  set_engine("nnet") %>% 
+  set_mode("classification") %>% 
+  translate()
+  
+  modelo_fit <- 
+  workflow() %>% 
+  add_model(mod) %>% 
+  add_recipe(receta) %>% 
+  fit(data = train_data)
+
+model_pred <- 
+  predict(modelo_fit, test_data, type = "prob") %>% 
+  bind_cols(test_data) 
+
+return(model_pred %>% 
+  roc_auc(truth = Exited, .pred_0))
+}
+
+
+fiteaNN(5)
+fiteaNN(6)
+fiteaNN(7)
+fiteaNN(8)
+fiteaNN(9)
+fiteaNN(10)
+```
+
+Vemos que un modelo con 5 capas ocultas obtiene mejores resultados que otros modelos mas complejos, por lo que deberiamos preservar este modelo ya que cuenta con menos parametros y por lo tanto es mas estable. 
+
+Para configuraciones de redes mas complejas deberiamos utilizar la libreria tensorflow, la cual dejare de tarea para la casa
+```{r}
+library(tensorflow)
+# https://colorado.rstudio.com/rsc/churn/modeling/tensorflow-w-r.nb.html
+```
+
