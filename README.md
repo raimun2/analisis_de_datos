@@ -4,7 +4,7 @@ Analisis de datos
 En este repositorio estan los apuntos del curso de Análisis de Datos que
 estoy dictando en la Universidad Adolfo Ibañez el primer semestre 2021.
 
-Los videos de las clases los pueden encontrar en [YouTube](https://www.youtube.com/playlist?list=PL9Yll0eEZuHBCdhixhG5q2bfhsJ-WxbFo)
+
   - [1: Introduccion](../master/01.Introduccion)
 
   - [2: Tipos de datos](../master/02.Tipos_de_datos)
